@@ -32,6 +32,29 @@ LTF exists to make human-AI conversations:
 
 ---
 
+## Export from ChatGPT, Claude, or Gemini
+
+The fastest way to create an LTF file is with the **LocalThink Browser Extension**.
+
+It captures ChatGPT, Claude, and Gemini conversations directly from the browser DOM and exports a deterministic `.ltf.md` file — no AI generation, no formatting loss.
+
+**What it captures:**
+- Full conversation turns with speaker labels
+- Code blocks, lists, tables, and links with original structure
+- Capture diagnostics in the frontmatter
+
+**Install:**
+1. Open Chrome and go to `chrome://extensions`
+2. Enable **Developer mode**
+3. Click **Load unpacked**
+4. Select the `localthink-browser-extension` folder
+5. Open a ChatGPT, Claude, or Gemini conversation
+6. Click the LocalThink extension icon, then **Capture**, then **Download .ltf.md**
+
+See [localthink-browser-extension](../localthink-browser-extension) for the full source.
+
+---
+
 ## Quick Start
 
 An LTF file is a normal markdown file with a `localthink` identifier in YAML frontmatter.
@@ -62,6 +85,8 @@ visibility: private
 ```
 
 That is already a valid LocalThink Format document.
+
+You can write this by hand, export it from your browser with the extension above, or generate it from a transcript with any AI assistant that understands the format.
 
 ---
 
@@ -121,151 +146,10 @@ localthink-format/
 │   └── extended-discussion.ltf.md
 └── skills/
     ├── localthink-builder/
-    │   └── SKILL.md
     └── localthink-validator/
-        └── SKILL.md
 ```
 
----
-
-## Official Skills
-
-This repository starts with two official skills:
-
-### `localthink-builder`
-
-Generates a valid LTF 1.0 markdown document from a human-AI conversation, transcript, notes, or dialogue summary.
-
-Use it when you want to create an LTF file from a conversation.
-
-Example prompts:
-
-```text
-Please save this conversation as a LocalThink Format file.
-```
-
-```text
-Please convert these notes into an LTF 1.0 document.
-```
-
-```text
-Please generate a private LTF file for the LocalThink project from this transcript.
-```
-
-The builder should:
-
-- generate `created`
-- update `updated` when appending to an existing document
-- use `.ltf.md` as the recommended filename extension
-- set `visibility: private` unless public sharing is requested
-- include `project` and `project_id` when they are known
-- preserve the real conversation when available
-
-### `localthink-validator`
-
-Reviews an LTF markdown document for spec compliance, metadata quality, body structure, and privacy risk.
-
-Use it when you want to check or repair an LTF file.
-
-Example prompts:
-
-```text
-Please check whether this file is valid LTF 1.0.
-```
-
-```text
-Please validate this LTF file before I publish it.
-```
-
-```text
-Please fix this document so it conforms to LocalThink Format 1.0.
-```
-
-The validator should check:
-
-- required fields: `localthink`, `created`, `platform`, `language`
-- recommended filename extension: `.ltf.md`
-- project metadata quality when present
-- append/update consistency between `updated` and the document body
-- privacy risks before public or unlisted sharing
-
-These skills are intentionally text-first. LTF is meant to be maintained by humans and AI together, not only by deterministic scripts.
-
-Deterministic tools may be added later when the format stabilizes further.
-
----
-
-## How To Use The Skills
-
-Each skill is a folder containing a `SKILL.md` file:
-
-```text
-skills/localthink-builder/SKILL.md
-skills/localthink-validator/SKILL.md
-```
-
-Use them in any AI agent or chatbot environment that supports skill-style instructions. The simplest workflow is:
-
-1. Add or install the skill folder in your agent environment.
-2. Start or paste a conversation.
-3. Ask the agent to use the relevant LocalThink skill.
-4. Save the generated output as a `.ltf.md` file.
-
-### Builder Workflow
-
-Use `localthink-builder` at the end of a meaningful conversation.
-
-Input:
-
-- current conversation
-- raw transcript
-- notes from a conversation
-- exported chatbot text
-
-Output:
-
-- one complete LTF 1.0 markdown document
-- recommended filename: `short-title-slug.ltf.md`
-
-Example:
-
-```text
-Use localthink-builder to turn this conversation into a private LTF 1.0 file for the LocalThink project.
-```
-
-When appending to an existing LTF file, give the existing file content to the agent and ask:
-
-```text
-Use localthink-builder to append this new session to the existing LTF document and update the updated field.
-```
-
-### Validator Workflow
-
-Use `localthink-validator` before importing, publishing, or sharing an LTF file.
-
-Input:
-
-- an LTF markdown file
-- a draft LTF document
-- a file converted from another source
-
-Output:
-
-- validation status
-- errors, warnings, and suggestions
-- optional repaired LTF document
-
-Example:
-
-```text
-Use localthink-validator to check this file against LTF 1.0 and tell me what must be fixed.
-```
-
-For repair:
-
-```text
-Use localthink-validator to repair this document with the smallest possible changes.
-```
+The `skills/` folder contains reference prompts for AI agents. They are not required for normal use.
 
 ---
 
