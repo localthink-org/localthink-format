@@ -1,8 +1,8 @@
 # LocalThink Format
 
-**LocalThink Format (LTF) is an open markdown standard for saving, owning, sharing, and extending human-AI conversations.**
+**LocalThink Format (LTF) is an open standard for saving AI conversations as portable, readable files.**
 
-Your thinking should not disappear into closed chat interfaces. It should live in files you can read, move, search, back up, publish, and build tools on.
+Your AI thinking should not disappear into closed chat interfaces. It should live in files you can read, move, search, back up, publish, and build tools on.
 
 LocalThink Format turns a meaningful human-AI conversation into a living markdown document with structured metadata and readable content.
 
@@ -32,11 +32,13 @@ LTF exists to make human-AI conversations:
 
 ---
 
-## Export from ChatGPT, Claude, or Gemini
+## Create LTF Files
 
-The fastest way to create an LTF file is with the **LocalThink Browser Extension**.
+The fastest way to create an LTF file is with **LTF Builder**.
 
-It captures ChatGPT, Claude, and Gemini conversations directly from the browser DOM and exports a deterministic `.ltf.md` file — no AI generation, no formatting loss.
+LTF Builder is a Chrome plugin that captures conversations from supported AI platforms and exports them as clean `.ltf.md` files.
+
+No signup. No cloud. No AI generation. It reads the rendered page and converts conversations into readable markdown, with code blocks, tables, and lists preserved.
 
 **What it captures:**
 - Full conversation turns with speaker labels
@@ -47,11 +49,11 @@ It captures ChatGPT, Claude, and Gemini conversations directly from the browser 
 1. Open Chrome and go to `chrome://extensions`
 2. Enable **Developer mode**
 3. Click **Load unpacked**
-4. Select the `localthink-browser-extension` folder
+4. Select the `localthink-builder` folder
 5. Open a ChatGPT, Claude, or Gemini conversation
-6. Click the LocalThink extension icon, then **Capture**, then **Download .ltf.md**
+6. Click LTF Builder, then export the conversation as `.ltf.md`
 
-See [localthink-browser-extension](../localthink-browser-extension) for the full source.
+See [localthink-builder](https://github.com/localthink-org/localthink-builder) for the full source.
 
 ---
 
@@ -86,7 +88,7 @@ visibility: private
 
 That is already a valid LocalThink Format document.
 
-You can write this by hand, export it from your browser with the extension above, or generate it from a transcript with any AI assistant that understands the format.
+You can write this by hand, export it from your browser with LTF Builder, or generate it from a transcript with any AI assistant that understands the format.
 
 ---
 
@@ -144,12 +146,9 @@ localthink-format/
 │   ├── minimal.ltf.md
 │   ├── full.ltf.md
 │   └── extended-discussion.ltf.md
-└── skills/
-    ├── localthink-builder/
-    └── localthink-validator/
 ```
 
-The `skills/` folder contains reference prompts for AI agents. They are not required for normal use.
+Tooling lives in separate repositories, starting with [localthink-builder](https://github.com/localthink-org/localthink-builder).
 
 ---
 

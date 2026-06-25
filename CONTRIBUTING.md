@@ -31,16 +31,7 @@ Good spec changes usually:
 
 Please avoid adding required fields unless there is a strong reason. LTF should stay easy to create.
 
-### 3. Improve Skills
-
-The official skills are part of the format's adoption path:
-
-- `localthink-builder` creates LTF documents from conversations.
-- `localthink-validator` checks LTF documents for spec compliance and quality.
-
-Good skill contributions make these workflows clearer, safer, and easier to use across AI agents.
-
-### 4. Build Tools
+### 3. Build Tools
 
 Useful tools include:
 
@@ -52,9 +43,11 @@ Useful tools include:
 - readers and search interfaces
 - converters from ChatGPT, Claude, Gemini, or other exports
 
+LTF Builder lives in the separate [localthink-builder](https://github.com/localthink-org/localthink-builder) repository. Contributions to the Chrome plugin should go there.
+
 Tools should respect `visibility` and avoid uploading private content without explicit user consent.
 
-### 5. Translate Documentation
+### 4. Translate Documentation
 
 Translations are welcome. Please preserve technical field names exactly:
 
