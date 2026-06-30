@@ -36,7 +36,7 @@ LTF exists to make human-AI conversations:
 
 The fastest way to create an LTF file is with **LTF Builder**.
 
-LTF Builder is a Chrome plugin that captures conversations from supported AI platforms and exports them as clean `.ltf.md` files.
+LTF Builder is a Chrome extension that currently exports ChatGPT web conversations as clean `.ltf.md` files.
 
 No signup. No cloud. No AI generation. It reads the rendered page and converts conversations into readable markdown, with code blocks, tables, and lists preserved.
 
@@ -46,12 +46,18 @@ No signup. No cloud. No AI generation. It reads the rendered page and converts c
 - Capture diagnostics in the frontmatter
 
 **Install:**
-1. Open Chrome and go to `chrome://extensions`
-2. Enable **Developer mode**
-3. Click **Load unpacked**
-4. Select the `localthink-builder` folder
-5. Open a ChatGPT, Claude, or Gemini conversation
-6. Click LTF Builder, then export the conversation as `.ltf.md`
+
+Install LTF Builder from the Chrome Web Store:
+
+https://chromewebstore.google.com/detail/ltf-builder/icpjoemgdpkmllkngcpndocnalodhfaj
+
+Then:
+
+1. Open a ChatGPT conversation.
+2. Click LTF Builder.
+3. Click **Capture**.
+4. Review metadata and preview.
+5. Download the `.ltf.md` file.
 
 See [localthink-builder](https://github.com/localthink-org/localthink-builder) for the full source.
 
@@ -171,3 +177,15 @@ localthink: "1.0"
 LocalThink Format is released under [CC0 1.0](./LICENSE).
 
 This means the specification is dedicated to the public domain as much as legally possible. Anyone can use it, implement it, extend it, translate it, or build products on it without permission.
+
+---
+
+## Links
+
+- Website: https://localthink.org
+- LTF Builder: https://localthink.org/ltf-builder
+- Chrome Web Store: https://chromewebstore.google.com/detail/ltf-builder/icpjoemgdpkmllkngcpndocnalodhfaj
+- LTF Builder source: https://github.com/localthink-org/localthink-builder
+- Company and privacy: https://localthink.ai
+- X: https://x.com/localthinkai
+- Threads: https://www.threads.com/@localthink.ai
