@@ -7,3 +7,4 @@ export {
   validateLtf,
 } from "./validate.js";
 export { runCli } from "./cli.js";
+export { exportLtf, splitMessages } from "./export.js";

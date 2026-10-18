@@ -31,6 +31,33 @@ npx @localthink/ltf validate path/to/note.ltf.md
 npx @localthink/ltf validate path/to/note.ltf.md --json
 ```
 
+### Export
+
+Convert an LTF document to another format:
+
+```bash
+npx @localthink/ltf export path/to/note.ltf.md --to md      # plain markdown, no frontmatter
+npx @localthink/ltf export path/to/note.ltf.md --to html    # standalone HTML, inline styles
+npx @localthink/ltf export path/to/note.ltf.md --to json    # { frontmatter, messages[] }
+npx @localthink/ltf export path/to/note.ltf.md --to org     # Emacs Org-mode
+npx @localthink/ltf export path/to/note.ltf.md --to html -o out.html
+```
+
+- `md` strips the frontmatter but keeps the body as-is: a drop-in plain
+  markdown file.
+- `html` writes a self-contained document (inline CSS, no dependencies)
+  with the frontmatter rendered as a header card and each turn as a
+  styled block; safe to email or open directly in a browser.
+- `json` is for other tools: `{"frontmatter": {...}, "messages":
+  [{"role", "time", "text"}, ...]}` where `role` is `human`, `ai` or
+  `contributor`, and non-turn sections are kept as `{ role: null }`
+  markers so nothing is silently dropped.
+- `org` produces an Emacs Org-mode outline with `#+title` and `**` heading
+  per turn.
+
+Exit codes: same as `validate` — `0` exported, `1` invalid document,
+`2` bad usage or unreadable file (including an unknown `--to` target).
+
 Exit codes:
 
 | Code | Meaning |

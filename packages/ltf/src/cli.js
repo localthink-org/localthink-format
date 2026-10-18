@@ -1,4 +1,5 @@
-import { readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
+import { exportLtf } from "./export.js";
 import { filenameWarning, validateLtf } from "./validate.js";
 
 const pkg = JSON.parse(
@@ -9,6 +10,7 @@ const HELP = `ltf — parser and validator for LocalThink Format (.ltf.md)
 
 Usage:
   ltf validate <file> [--json]
+  ltf export <file> --to html|md|json|org [-o out]
   npx @localthink/ltf validate <file>
 
 Options:
@@ -21,7 +23,6 @@ Exit codes:
   1  the document is invalid
   2  the command or the file could not be used
 
-Required frontmatter, from SPEC.md section 3.1:
   localthink, created, platform, language
 
 Specification: https://github.com/localthink-org/localthink-format/blob/main/SPEC.md
@@ -42,6 +43,12 @@ export function runCli(args, io = {}) {
     if (arg === "--help" || arg === "-h") flags.add("help");
     else if (arg === "--version" || arg === "-v") flags.add("version");
     else if (arg === "--json") flags.add("json");
+    // export subcommand flags (--to/-t/--out/-o and their values) are
+    // handled inside the export branch below, so let them through here
+    else if (
+      arg === "--to" || arg === "-t" || arg === "--out" || arg === "-o" ||
+      arg.startsWith("--to=") || arg.startsWith("--out=")
+    ) positionals.push(arg);
     else if (arg.startsWith("-")) {
       stderr(`unknown option: ${arg}\n\n${HELP}`);
       return 2;
@@ -60,6 +67,30 @@ export function runCli(args, io = {}) {
   }
 
   const [command, ...rest] = positionals;
+
+  if (command === "export") {
+    const FLAG_VALUES = new Set(["--to", "-t", "--out", "-o"]);
+    const source = rest.find((arg, i) => !arg.startsWith("-") && !FLAG_VALUES.has(rest[i - 1]));
+    let to = "md";
+    let out = null;
+    for (let i = 0; i < rest.length; i++) {
+      const flag = rest[i];
+      if (flag === "--to" || flag === "-t") to = rest[i + 1] ?? "";
+      else if (flag === "--out" || flag === "-o") out = rest[i + 1] ?? null;
+      else if (flag.startsWith("--to=")) to = flag.slice(5);
+      else if (flag.startsWith("--out=")) out = flag.slice(6);
+      else if (flag.startsWith("-")) {
+        stderr(`unknown option: ${flag}\n\n${HELP}`);
+        return 2;
+      }
+    }
+    if (!source) {
+      stderr("export expects one file path\n\n" + HELP);
+      return 2;
+    }
+    return runExport({ source, to, out, stdout, stderr, flags });
+  }
+
   if (command !== "validate") {
     stderr(`unknown command: ${command ?? "(missing)"}\n\n${HELP}`);
     return 2;
@@ -113,4 +144,38 @@ function formatReport(filePath, result) {
     lines.push(`  warning  [${warning.code}] ${warning.message}`);
   }
   return `${lines.join("\n")}\n`;
+}
+
+/** @param {{ source: string, to: string, out: string|null, stdout: Function, stderr: Function, flags: Set<string> }} ctx */
+function runExport({ source, to, out, stdout, stderr, flags }) {
+  if (!["html", "md", "json", "org"].includes(to)) {
+    stderr(`unknown export target: ${to}\n  valid targets: html, md, json, org\n`);
+    return 2;
+  }
+  let text;
+  try {
+    text = readFileSync(source, "utf8");
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    stderr(`cannot read ${source}: ${message}\n`);
+    return 2;
+  }
+
+  const result = exportLtf(text, to);
+  if (!result.ok) {
+    if (flags.has("json")) {
+      stdout(`${JSON.stringify({ ok: false, path: source, errors: result.errors ?? [{ code: result.code, message: result.message }] }, null, 2)}\n`);
+    } else {
+      const code = result.code ?? "export.failed";
+      stderr(`export ${source} [${code}] ${result.message}\n`);
+    }
+    return 1;
+  }
+  if (out) {
+    writeFileSync(out, result.output, "utf8");
+    stderr(`wrote ${out}\n`);
+  } else {
+    stdout(result.output);
+  }
+  return 0;
 }
