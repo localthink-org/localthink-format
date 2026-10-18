@@ -6,6 +6,10 @@ Your AI thinking should not disappear into closed chat interfaces. It should liv
 
 LocalThink Format turns a meaningful human-AI conversation into a living markdown document with structured metadata and readable content.
 
+[![License: CC0 1.0](https://img.shields.io/badge/license-CC0%201.0-lightgrey)](./LICENSE)
+[![LTF Builder for Chrome](https://img.shields.io/badge/Chrome-LTF%20Builder-4285F4?logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/ltf-builder/icpjoemgdpkmllkngcpndocnalodhfaj)
+[![Download LocalThink for Mac](https://img.shields.io/badge/macOS-Download-000000?logo=apple&logoColor=white)](https://localthink.ai/download)
+
 ---
 
 ## Why LocalThink Format
@@ -60,6 +64,12 @@ Then:
 5. Download the `.ltf.md` file.
 
 See [localthink-builder](https://github.com/localthink-org/localthink-builder) for the full source.
+
+---
+
+## LocalThink for Mac
+
+[Download LocalThink for Mac](https://localthink.ai/download) to search, organize, and continue saved LTF conversations on your own computer.
 
 ---
 
@@ -183,6 +193,7 @@ This means the specification is dedicated to the public domain as much as legall
 ## Links
 
 - Website: https://localthink.org
+- Download LocalThink for Mac: https://localthink.ai/download
 - LTF Builder: https://localthink.org/ltf-builder
 - Chrome Web Store: https://chromewebstore.google.com/detail/ltf-builder/icpjoemgdpkmllkngcpndocnalodhfaj
 - LTF Builder source: https://github.com/localthink-org/localthink-builder
