@@ -45,6 +45,8 @@ Useful tools include:
 
 LTF Builder lives in the separate [localthink-builder](https://github.com/localthink-org/localthink-builder) repository. Contributions to the Chrome plugin should go there.
 
+A reference parser and validator lives in [`packages/ltf`](./packages/ltf) and publishes as `@localthink/ltf`.
+
 Tools should respect `visibility` and avoid uploading private content without explicit user consent.
 
 ### 4. Translate Documentation

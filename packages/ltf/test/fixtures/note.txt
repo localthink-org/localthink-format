@@ -1,0 +1,12 @@
+---
+localthink: "1.0"
+created: 2026-05-18
+platform: chatgpt
+language: en
+---
+
+## Conversation
+
+**Human:** The suffix is not the recommended one.
+
+**AI:** `.md` is allowed and `.ltf.md` is recommended. This `.txt` file is still readable, with a warning.
