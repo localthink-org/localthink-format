@@ -4,7 +4,9 @@ Parser and validator for [LocalThink Format](https://github.com/localthink-org/l
 
 The source of truth is [SPEC.md](https://github.com/localthink-org/localthink-format/blob/main/SPEC.md) at the root of the format repository. This package, in `packages/ltf`, follows the v1.0 parser guidelines in section 8: read the YAML frontmatter, require `localthink: "1.0"`, validate `created`, `platform`, and `language`, keep the body as markdown, and ignore unknown fields.
 
-It does not export chats. Use LTF Builder or the Mac app for that, then validate the file here.
+It does not *capture* chats — use LTF Builder or the Mac app for that,
+then validate and convert the files here. It can also re-export existing
+`.ltf.md` files to `md`, `html`, `json`, or `org` (see Export below).
 
 ## Links
 
